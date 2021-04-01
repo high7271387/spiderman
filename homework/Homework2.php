@@ -69,9 +69,7 @@
       
   }
   echo'元整';
-
 }
-
     function isfourzero($import,$ll){
       $testnum = 0;
       for($i=0;$i<$ll;$i++){
@@ -139,7 +137,7 @@
     function Conversion($imnum,$ji){
         switch($imnum){
             case '0':
-              if($ji!=1){
+              if($ji!=4){
                 echo'零';
               }
               break;
@@ -173,36 +171,8 @@
         }
     }
     function ff($num){
-        switch($num){
-          case '0':
-            break;
-          case '1':
-            echo'萬';
-            break;
-          case '2':
-            echo'億';
-            break;
-          case '3':
-            echo'兆';
-            break;
-          case '4':
-            echo'京';
-          case '5':
-            echo'垓';
-            break;
-          case '6':
-            echo'秭';
-            break;
-          case '7':
-            echo'穰';
-            break;
-          case '8':
-            echo'溝';
-            break;
-          case '9':
-            echo'澗';
-            break;
-        }
+       $arr = array('','萬','億','兆','京','垓','秭','穰','溝','澗');
+       echo $arr[$num];
     }
 
 ?>
