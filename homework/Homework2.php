@@ -58,11 +58,14 @@
             $num--;
       }
       else{
-        Numberunit(substr($inn,$i,4),4);
-        $i = $i + 3;
+        Numberunit(substr($inn,$i,4),4);        
         if(strlen($inn)!=4){
-          ff($num);
+          if(isfourzero(substr($inn,$i,4),4)){
+            ff($num);
+          }
+          
         }
+        $i = $i + 3;
         $num--;
 
 
@@ -72,10 +75,29 @@
   echo'元整';
 
 }
+
+    function isfourzero($import,$ll){
+      // echo "<hr>$import , $ll<hr>";
+      $testnum = 0;
+      for($i=0;$i<$ll;$i++){
+          if($import[$i] == 0){
+            $testnum ++;
+          }
+        }
+        if($testnum == $ll){
+          return;
+        }  
+    
+    }
+
     function Numberunit($import,$ll){
+      // echo "$import , ll：$ll<hr>";
+
+
+
         $j=0;
         while($ll>0){
-            if($import[$j]==0 && $import[($j-1)]==0){ $j++; $ll--; continue;}
+            if($import[$j]==0 && $import[($j-1)]==0){ $j++; $ll--;  continue;}
             Conversion($import[$j],$ll);
             if($import[$j]!=0){
               switch($ll){
@@ -98,12 +120,13 @@
             $ll--;
         }
 
-
+        // echo '<hr>';
     }
 
   
 
     function Conversion($imnum,$ji){
+        // echo "/imnum：$imnum";
         switch($imnum){
             case '0':
               if($ji!=1){
