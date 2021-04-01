@@ -49,7 +49,6 @@
   if(isset($_REQUEST['open'])){
     $num = ceil(strlen($inn)/4)-1;
     $l = strlen($inn)%4;
-
     for($i=0;$i<strlen($inn);$i++){
       if($i==0 && $l!=0){
             Numberunit(substr($inn,0,$l),$l);
@@ -77,7 +76,6 @@
 }
 
     function isfourzero($import,$ll){
-      // echo "<hr>$import , $ll<hr>";
       $testnum = 0;
       for($i=0;$i<$ll;$i++){
           if($import[$i] == 0){
@@ -85,16 +83,15 @@
           }
         }
         if($testnum == $ll){
-          return;
-        }  
+          return false;
+        }
+        else{
+          return true;
+        }   
     
     }
 
     function Numberunit($import,$ll){
-      // echo "$import , ll：$ll<hr>";
-
-
-
         $j=0;
         while($ll>0){
             if($import[$j]==0 && $import[($j-1)]==0){ $j++; $ll--;  continue;}
@@ -120,13 +117,11 @@
             $ll--;
         }
 
-        // echo '<hr>';
     }
 
   
 
     function Conversion($imnum,$ji){
-        // echo "/imnum：$imnum";
         switch($imnum){
             case '0':
               if($ji!=1){
