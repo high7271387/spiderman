@@ -62,12 +62,9 @@
           if(isfourzero(substr($inn,$i,4),4)){
             ff($num);
           }
-          
         }
         $i = $i + 3;
         $num--;
-
-
       }
       
   }
@@ -92,9 +89,29 @@
     }
 
     function Numberunit($import,$ll){
+        $testll = $ll;
         $j=0;
         while($ll>0){
-            if($import[$j]==0 && $import[($j-1)]==0){ $j++; $ll--;  continue;}
+          
+            if($j!=0){
+              $testgap =0;
+              $gap = $testll - $j ;
+              for($i=$j;$i<$testll;$i++){
+                 if($import[$i]==0){
+                   $testgap++;
+                 }
+              }
+    
+              if($testgap == $gap){
+                return;
+              }
+            }
+            
+            if($import[$j]==0 && $import[($j-1)]==0){ 
+              $j++; $ll--;
+              continue;
+            }
+  
             Conversion($import[$j],$ll);
             if($import[$j]!=0){
               switch($ll){
@@ -115,12 +132,10 @@
             }
             $j++;
             $ll--;
+            
         }
 
     }
-
-  
-
     function Conversion($imnum,$ji){
         switch($imnum){
             case '0':
@@ -157,8 +172,6 @@
               break;
         }
     }
-
-
     function ff($num){
         switch($num){
           case '0':
