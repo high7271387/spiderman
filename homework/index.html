@@ -5,11 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+      .banner{
+          height:50vw ;
+          width: 100vw ;
+      }
+      .alt{
+          float: left;
+      }
+      #img1{
+          height:10vw ;
+          width: 10vw ;
+          margin-left: 0vw;
+      }
+      #img2{
+         
+          height:10vw ;
+          width:10vw ;
+          margin-left: 33vw;
+      }
+      #img3{
+          height:10vw;
+          width:10vw;
+          margin-left: 33vw;
+      }
+      .alt div{
+        display:inline-block;
+      }
+    </style>
 </head>
 <body>
-    <p><a href="homework1.php">作業1</a></p>
-    <p><a href="Homework2.php">作業2</a></p>
-    <p><a href="homework3n.php">作業3</a></p>
+   <div>
+    <img src="images/img1.png" class="banner">
+   </div>
+   <div class="alt">
+     <div> 
+       <a href="homework1.php"><img src="images/herf1.jfif" id="img1"></a>
+     </div>
+     <div>
+       <a href="Homework2.php"><img src="images/herf2.jpg" id="img2"></a>
+     </div>
+     
+     <div>
+       <a href="homework3n.php"><img src="images/herf3.jpg" id="img3"></a>
+     </div>
+  </div>
 
 </body>
 </html>
