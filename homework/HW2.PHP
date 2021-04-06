@@ -1,52 +1,10 @@
- <?php
-    if(isset($_REQUEST['open'])){
-      $inn = (string)$_REQUEST['usernumber'];
-    }
- ?>
- <!DOCTYPE html>
- <html lang="en">
- <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
- </head>
- <body>
-   
-    <form action="Homework2.php" method="get">
-      請輸入一個正整數：<input type="number" name='usernumber' value="<?php 
-      
-      if(isset($_REQUEST['open'])){
-        echo $inn ;
-      }
-      
-      ?>">
-      <input type="hidden" name='open'>
-      <input type="submit" value='送出'>
-    </form>
 
-
-    <script>
-       let sub = document.querySelector("input[type='submit']");
-       sub.addEventListener('click',e=>{
-         if(!document.querySelector("input[type='number']").value ){
-           alert('請輸入一個數字')
-           e.preventDefault();
-         }
-         else if(document.querySelector("input[type='number']").value<=0){
-           alert('請輸入大於零的數字')
-           e.preventDefault();
-         }
-       });
-    
-    </script>
-
-
- </body>
- </html>
- 
  <?php   
-  if(isset($_REQUEST['open'])){
+      header("Content-Type:text/html; charset=utf-8");
+      $data =  json_decode(file_get_contents("php://input")); 
+      $inn = $data ->input;
+      $echoary = array();
+
     $num = ceil(strlen($inn)/4)-1;
     $l = strlen($inn)%4;
     for($i=0;$i<strlen($inn);$i++){
@@ -68,8 +26,14 @@
       }
       
   }
-  echo'元整';
-}
+  if(count($echoary)!=0){
+    array_push($echoary,'元整');
+  }
+  else{
+    array_push($echoary,'就叫你輸入正整數了你還輸入別的');
+  }
+  echo json_encode($echoary,JSON_UNESCAPED_UNICODE);
+
     function isfourzero($import,$ll){
       $testnum = 0;
       for($i=0;$i<$ll;$i++){
@@ -114,13 +78,13 @@
             if($import[$j]!=0){
               switch($ll){
                   case 4:
-                    echo '仟';
+                    array_push($GLOBALS["echoary"],'仟');
                     break;
                   case 3:
-                    echo'佰';
+                    array_push($GLOBALS["echoary"],'佰');
                     break;
                   case 2:
-                    echo'拾';
+                    array_push($GLOBALS["echoary"],'拾');
                     break;     
                   case 1:
                     break;
@@ -138,41 +102,41 @@
         switch($imnum){
             case '0':
               if($ji!=4){
-                echo'零';
+                array_push($GLOBALS["echoary"],'零');
               }
               break;
             case '1':
-              echo'壹';
+              array_push($GLOBALS["echoary"],'壹');
               break;
             case '2':
-              echo'貳';
+              array_push($GLOBALS["echoary"],'貳');
               break;
             case '3':
-              echo'參';
+              array_push($GLOBALS["echoary"],'參');
               break;
             case '4':
-              echo'肆';
+              array_push($GLOBALS["echoary"],'肆');
               break;
             case '5':
-              echo'伍';
+              array_push($GLOBALS["echoary"],'伍');
               break;
             case '6':
-              echo'陸';
+              array_push($GLOBALS["echoary"],'陸');
               break;
             case '7':
-              echo'柒';
+              array_push($GLOBALS["echoary"],'柒');
               break;
             case '8':
-              echo'捌';
+              array_push($GLOBALS["echoary"],'捌');
               break;
             case '9':
-              echo'玖';
+              array_push($GLOBALS["echoary"],'玖');
               break;
         }
     }
     function ff($num){
        $arr = array('','萬','億','兆','京','垓','秭','穰','溝','澗');
-       echo $arr[$num];
+       array_push($GLOBALS["echoary"], $arr[$num]);
     }
 
 ?>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作業二</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js' integrity='sha512-o9SZrtqlGkpa7EF+dDrNjEdRFFYhymlrBzDKpolHNolxsyx0IcXAbEm9i1e8QpoiMgEdKZVtY8XiK1t8i6jVDA==' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js' integrity='sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ==' crossorigin='anonymous'></script>
+    <style>
+        body{
+            font-family: '微軟正黑體';
+            background-color: burlywood;
+        }
+        #web{
+            height: 1000px;
+        }
+        #inputarea{
+            background-color: aqua;
+            height: 300px;
+            width: 600px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 10px 10px 25px rgb(126, 126, 126);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        #inputarea h1{
+            width: 100%;
+            text-align: center;
+            margin-bottom: -50px;
+        }
+        #inputarea button{
+            background-color:#003C9D;            
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 5px;
+            width: 75px;
+            transition: all .4s;
+            height: 20px;
+        }
+        #inputarea button:active{
+            color:#003C9D;
+            background-color:#fff;
+            border:2px #003C9D solid;
+        }
+        .datalist:nth-child(odd){
+            background-color: rgb(100, 228, 228);
+            width: 800px;
+            margin: 0 auto;
+        }
+        .datalist:nth-child(even){
+            background-color: rgb(111, 230, 106);
+            width: 800px;
+            margin: 0 auto;
+        }
+        .datalist{
+            border-bottom: 1px solid black;
+            display: flex;
+            height: 30px;
+            line-height: 30px;
+            transition: all 0.8s;
+            justify-content: space-between;
+        }
+        .datalist:hover{
+            opacity: 0.6;
+        }
+        .datalist span:nth-child(1){
+            width: 15%;
+        }
+        .datalist span:nth-child(2){
+            border-left: 1px black solid;
+            width: 70%;
+        }        
+        .datalist button{
+            cursor: pointer;
+            height: 30px;
+        }
+        .data-enter, .data-leave-to{
+            opacity: 0;
+            transform: translateX(-150px);
+        }
+        .data-leave-active {
+            position: absolute;
+        }
+        .data-move {
+            transition: all 0.8s ease;
+        }
+     
+
+    </style>
+</head>
+<body>
+    <div id='web'>
+        <div id="inputarea">
+            <h1>阿拉伯數字轉中文字程式</h1>
+            <label for="input">請輸入一個正整數：</label>
+            <input type="number" id='input' v-model='input'  >
+            <button type="button" @click='submit'>轉換</button>
+        </div>
+        <transition-group  name='data'  mode='out-in' @before-leave='beforeHandler' tag='a'>
+           <div v-for='(item,key,index) of resdata' :key='item[0]' class='datalist' > 
+               <span> {{item[0]}} </span>
+               <span> {{item[1]}} </span> 
+               <button v-if='key!=0' @click='deleteData(key)'>刪除</button>
+               <button v-else @click='deleteAll()'>全刪</button>
+            </div>
+        </transition-group>
+ 
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el:'#web',
+            data:{
+                key:0,
+                input:0,
+                resdata:[],
+            },
+            methods:{
+                submit(){ 
+                    if(this.input == ''){
+                        alert('請輸入數字');
+                        return;
+                    }
+                    if(parseInt(this.input)<=0){
+                        alert('請輸入大於零的數字')
+                        return;
+                    }
+                    axios.post('HW2.php', JSON.stringify({ input:parseInt(this.input)}) )
+                    .then(res=>{
+                        if(this.key==0){
+                            this.$set(this.resdata, this.key, ['轉換前','轉換後']);
+                            this.key++;
+                            setTimeout(()=>{
+                                this.$set(this.resdata, this.key, [this.input,res.data.join('')]);
+                                this.key++;
+                            },500);
+                        }
+                        else{
+                            this.$set(this.resdata, this.key, [this.input,res.data.join('')]);
+                            this.key++;
+                        }
+                    });
+                },
+                deleteData(key){
+                    this.resdata.splice(key,1);
+                    this.key--;
+                    if(this.key==1){
+                        setTimeout(()=>{
+                                this.key--;
+                                this.resdata.splice(this.key,1);
+                            },700);
+                    }
+                },
+                deleteAll(){
+                    this.resdata.splice(this.key,1);
+                    this.key--;
+                    let time = setInterval(()=>{
+                                    this.resdata.splice(this.key,1);
+                                    this.key==0 ? clearInterval(time):this.key--;
+                               },300);
+                },
+                beforeHandler(){
+
+                },
+            },
+        });
+
+
+    </script>
+</body>
+</html>
