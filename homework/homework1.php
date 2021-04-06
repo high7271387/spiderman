@@ -11,23 +11,23 @@
 <body>
 
     <?php
-    if (isset($_POST['button'])) {
+    if (isset($_POST['enter'])) {
         $enter = $_POST['enter'];
     }
     ?>
-    <form action="1.php" id="form1" name="form1" method="post">
+    <form action="homework1.php" id="form1" name="form1" method="post">
         <input type="number" id="enter" name="enter" value="<?php echo $enter; ?>">
         <p><input type="submit" name="button" id="button" value="小到大排序"><input type="submit" name="button1" id="button1" value="大到小排序"></p>
 
     </form>
-
+ 
     <?php
     if (isset($_POST['button'])) {
 
         $startTime = microtime(1);
         $arr = array();
 
-        for ($i = 0; $i < $enter; $i++) {
+        for ($i = 0; $i < $GLOBALS["enter"]; $i++) {
             $arr[] = rand(1, 100000);
         }
         echo "排序前：";
@@ -44,7 +44,7 @@
 
         $startTime = microtime(1);
         $arr = array();
-        for ($i = 0; $i < $enter; $i++) {
+        for ($i = 0; $i < $GLOBALS["enter"]; $i++) {
             $arr[] = rand(1, 100000);
         }
         echo "排序前：";
