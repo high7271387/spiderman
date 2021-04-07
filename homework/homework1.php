@@ -17,7 +17,8 @@
     ?>
     <form action="homework1.php" id="form1" name="form1" method="post">
         <input type="number" id="enter" name="enter" value="<?php echo $enter; ?>">
-        <p><input type="submit" name="button" id="button" value="小到大排序"><input type="submit" name="button1" id="button1" value="大到小排序"></p>
+        <p><input type="submit" name="button" id="button" value="小到大排序 ">
+        <input type="submit" name="button1" id="button1" value="大到小排序"></p>
 
     </form>
  
