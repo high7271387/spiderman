@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     header("Content-type:text/html;charset=utf-8");
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 </head>
 <body>
         尋找質數PHP程式：<br>
-    <form action="3new.php" method='get'>
+    <form action="homework3n.php" method='get'>
         請輸入要尋找多少個質數：<input type="number" name='num' value='<?php if(isset($_REQUEST['set'])){
             echo $_REQUEST['num'];
         } ?>'>
